@@ -2,6 +2,7 @@ package com.chirikualii.materidb.ui.search
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import android.widget.Adapter
 import android.widget.Toast
 import androidx.activity.viewModels
@@ -29,105 +30,28 @@ class SearchActivity : AppCompatActivity() {
 
         listAdapter = MovieListAdapter()
         binding.rvMovie.adapter=listAdapter
-        listAdapter.addItem(
 
-            listOf(
-                Movie(
-                    movieId = "kk",
-                    title = "dajg",
-                    releaseDate ="dajsjj",
-                    imagePoster = "ajjad",
-                    backdrop = "adsmb",
-                    overview = "dakhfk",
-                    bookmark = 1),
+        observeView()
 
-                Movie(
-                    movieId = "kk",
-                    title = "dajg",
-                    releaseDate ="dajsjj",
-                    imagePoster = "ajjad",
-                    backdrop = "adsmb",
-                    overview = "dakhfk",
-                    bookmark = 1),
-
-                Movie(
-                    movieId = "kk",
-                    title = "dajg",
-                    releaseDate ="dajsjj",
-                    imagePoster = "ajjad",
-                    backdrop = "adsmb",
-                    overview = "dakhfk",
-                    bookmark = 1),
-
-                Movie(
-                    movieId = "kk",
-                    title = "dajg",
-                    releaseDate ="dajsjj",
-                    imagePoster = "ajjad",
-                    backdrop = "adsmb",
-                    overview = "dakhfk",
-                    bookmark = 1),
-
-                Movie(
-                    movieId = "kk",
-                    title = "dajg",
-                    releaseDate ="dajsjj",
-                    imagePoster = "ajjad",
-                    backdrop = "adsmb",
-                    overview = "dakhfk",
-                    bookmark = 1),
-
-                Movie(
-                    movieId = "kk",
-                    title = "dajg",
-                    releaseDate ="dajsjj",
-                    imagePoster = "ajjad",
-                    backdrop = "adsmb",
-                    overview = "dakhfk",
-                    bookmark = 1),
-
-                Movie(
-                    movieId = "kk",
-                    title = "dajg",
-                    releaseDate ="dajsjj",
-                    imagePoster = "ajjad",
-                    backdrop = "adsmb",
-                    overview = "dakhfk",
-                    bookmark = 1),
-
-                Movie(
-                    movieId = "kk",
-                    title = "dajg",
-                    releaseDate ="dajsjj",
-                    imagePoster = "ajjad",
-                    backdrop = "adsmb",
-                    overview = "dakhfk",
-                    bookmark = 1),
-
-                Movie(
-                    movieId = "kk",
-                    title = "dajg",
-                    releaseDate ="dajsjj",
-                    imagePoster = "ajjad",
-                    backdrop = "adsmb",
-                    overview = "dakhfk",
-                    bookmark = 1),
-
-                Movie(
-                    movieId = "kk",
-                    title = "dajg",
-                    releaseDate ="dajsjj",
-                    imagePoster = "ajjad",
-                    backdrop = "adsmb",
-                    overview = "dakhfk",
-                    bookmark = 1),
-
-
-            )
-        )
 
         binding.stSearch.doOnTextChanged { text, _, _, _ ->
+            viewModel.doSearchMovie(text.toString())
             Toast.makeText(this,"searching ${text}", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    fun observeView(){
+        viewModel.listMovie.observe(this) {
+            listAdapter.addItem(it)
+
+        }
+
+        viewModel.isLoading.observe(this){ isLoading ->
+            if(isLoading){
+                binding.progressBar.visibility = View.VISIBLE
+            }else{
+                binding.progressBar.visibility = View.INVISIBLE
+            }
         }
     }
 }

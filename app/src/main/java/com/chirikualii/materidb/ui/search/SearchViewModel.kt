@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.chirikualii.materidb.data.model.Movie
 import com.chirikualii.materidb.data.repository.MovieRepo
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import retrofit2.http.Query
@@ -27,6 +28,7 @@ class SearchViewModel(private val repo: MovieRepo) :ViewModel() {
                 val listData = repo.getSearchMovie(query)
 
                 withContext(Dispatchers.Main){
+                   delay(500)
                     _listMovie.value = listData
                     _isLoading.value = false
                 }

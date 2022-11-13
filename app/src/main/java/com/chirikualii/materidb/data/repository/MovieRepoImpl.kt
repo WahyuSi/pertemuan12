@@ -154,8 +154,8 @@ class MovieRepoImpl(
                         movieId = it.id.toString(),
                         title = it.title,
                         releaseDate = it.releaseDate,
-                        imagePoster = it.posterPath,
-                        backdrop = it.backdropPath,
+                        imagePoster = it.posterPath ?:"",
+                        backdrop = it.backdropPath ?:"",
                         overview = it.overview,
                     )
                 }
